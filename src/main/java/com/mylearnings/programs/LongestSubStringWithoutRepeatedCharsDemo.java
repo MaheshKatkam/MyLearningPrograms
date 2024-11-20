@@ -1,18 +1,25 @@
 package com.mylearnings.programs;
 
-import net.logstash.logback.encoder.org.apache.commons.lang3.StringUtils;
+
+import org.springframework.util.StringUtils;
+
+import java.util.Arrays;
+
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 public class LongestSubStringWithoutRepeatedCharsDemo {
 
     public static void main(String[] args) {
-        String str = "abcdefgaabcddcbas";
+        String str = "aabcdefa";
         String finalString = "";
         for(int i=0; i <= str.length() ; i++){
             for(int j = i+1 ; j <= str.length() ; j++){
                 String s = str.substring(i,j);
-                if(!checkDuplicateCharsFound(s)){
-                    if(StringUtils.isBlank(finalString) || finalString.length() < s.length()){
+                if( s.length()>1 && !checkDuplicateCharsFound(s)){
+                    if(StringUtils.isEmpty(finalString) || finalString.length() < s.length()){
                         finalString=s;
+                        System.out.println("Final String : "+finalString);
                     }
                 };
             }
@@ -21,20 +28,12 @@ public class LongestSubStringWithoutRepeatedCharsDemo {
     }
 
     private static boolean  checkDuplicateCharsFound(String s){
-        char[] chars = s.toCharArray();
-        for(int i=0 ; i < chars.length ; i++){
-            int charCount = 0 ;
-            for(int j=0 ; j<chars.length ; j++){
-                if(chars[i] == chars[j]){
-                    charCount++;
-                }
-            }
-            if(charCount>1){
-                return true;
-            }
-        }
-        System.out.println("Duplicate Chars Not  Found : "+s);
 
-        return false;
+       boolean duplicateCharPresentInString = Arrays.stream(s.split("")).collect(Collectors.groupingBy(Function.identity(), Collectors.counting()))
+                .entrySet()
+                .stream()
+                .filter(e -> e.getValue() > 1).findAny().isPresent();
+        System.out.println("Duplicate Chars Found String :"+ s  + " "+duplicateCharPresentInString);
+       return duplicateCharPresentInString;
     }
 }

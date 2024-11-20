@@ -37,6 +37,14 @@ public class StreamDemo {
         System.out.println(getNthHighestSalaryEmployees(groupBySalaryEmployees, 3));
 
 
+         System.out.println("------------------------------------");
+        groupBySalaryEmployees = groupBySalaryEmployees(employees);
+        System.out.println("before sort by salary : "+groupBySalaryEmployees);
+        groupBySalaryEmployees = groupBySalarySortedEmployees(groupBySalaryEmployees);
+        System.out.println("After sort by salary : "+groupBySalaryEmployees);
+
+
+
     }
 
     public static Map<Integer, List<Employee>> getAllSortedBySalaryEmployees(Map<Integer, List<Employee>> inputEmployeeMap) {
@@ -63,6 +71,13 @@ public class StreamDemo {
 
     public static Map<Integer, List<Employee>> groupBySalaryEmployees(List<Employee> employees) {
         return employees.stream().collect(Collectors.groupingBy(Employee::getSalary));
+    }
+
+    public static Map<Integer, List<Employee>> groupBySalarySortedEmployees(Map<Integer, List<Employee>> groupBySalaryEmployeeMap) {
+        return groupBySalaryEmployeeMap.entrySet()
+                .stream()
+                .sorted(Map.Entry.comparingByKey(Comparator.reverseOrder()))
+                .collect(Collectors.toMap(Map.Entry::getKey,Map.Entry::getValue));
     }
 
     public static Map<Integer, Long> groupBySalaryEmployeesCount(List<Employee> employees) {
