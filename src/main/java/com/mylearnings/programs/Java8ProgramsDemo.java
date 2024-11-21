@@ -43,8 +43,9 @@ public class Java8ProgramsDemo {
         String nonRepatedFirstOccuranceChar = Arrays.stream(str.split(""))
                 .collect(Collectors.groupingBy(Function.identity(), LinkedHashMap::new,Collectors.counting()))
                 .entrySet().stream().filter(x -> x.getValue()==1).map(Map.Entry::getKey)
-                .findFirst().get();
-        System.out.println(nonRepatedFirstOccuranceChar);
+                        .findFirst().get();
+               // .collect(Collectors.toList()).get(0);
+        System.out.println("nonRepatedFirstOccuranceChar. "+ nonRepatedFirstOccuranceChar);
 
         List<Integer> numbers = Arrays.asList(7,2,3,7,1,14,4,5,6);
         System.out.println(numbers.stream().sorted(Comparator.reverseOrder()).collect(Collectors.toList()).get(0));

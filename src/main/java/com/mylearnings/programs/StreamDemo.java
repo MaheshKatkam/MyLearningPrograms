@@ -2,12 +2,26 @@ package com.mylearnings.programs;
 
 import java.util.*;
 import java.util.function.Function;
+import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 public class StreamDemo {
     public static void main(String[] args) {
 
         List<Employee> employees = EmployeeService.getAllEmployees();
+
+        Map<String, Optional<Employee>> deptWiseHighestSalary = employees.stream()
+                .collect(Collectors.groupingBy(Employee::getDept, Collectors.maxBy(Comparator.comparing(Employee::getSalary))));
+
+        System.out.println("deptWiseHighestSalary : "+deptWiseHighestSalary);
+
+        System.out.println("Before Sorting : "+employees);
+
+        employees = employees.stream()
+                .sorted(Comparator.comparing(Employee::getSalary).reversed()).collect(Collectors.toList());
+        System.out.println("After sorting : "+employees);
+
+
 
         System.out.println("Coverting List of Employees to Map<Id,Employee>");
         Map<Integer, Employee> employeeMap = convetListToMap(employees);
@@ -64,6 +78,8 @@ public class StreamDemo {
                 .collect(Collectors.toList())
                 .get(num - 1);
     }
+
+
 
     public static Map<Integer, Employee> convetListToMap(List<Employee> employees) {
         return employees.stream().collect(Collectors.toMap(Employee::getId, Function.identity()));
