@@ -11,7 +11,7 @@ import java.util.stream.Collectors;
 public class LongestSubStringWithoutRepeatedCharsDemo {
 
     public static void main(String[] args) {
-        String str = "aabcdefa";
+        String str = "dfbaaabcdefafd";
         String finalString = "";
         for(int i=0; i <= str.length() ; i++){
             for(int j = i+1 ; j <= str.length() ; j++){
@@ -29,11 +29,12 @@ public class LongestSubStringWithoutRepeatedCharsDemo {
 
     private static boolean  checkDuplicateCharsFound(String s){
 
-       boolean duplicateCharPresentInString = Arrays.stream(s.split("")).collect(Collectors.groupingBy(Function.identity(), Collectors.counting()))
+       boolean duplicateCharPresentInString = Arrays.stream(s.split(""))
+               .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()))
                 .entrySet()
                 .stream()
                 .filter(e -> e.getValue() > 1).findAny().isPresent();
-        System.out.println("Duplicate Chars Found String :"+ s  + " "+duplicateCharPresentInString);
+       // System.out.println("Duplicate Chars Found String :"+ s  + " "+duplicateCharPresentInString);
        return duplicateCharPresentInString;
     }
 }

@@ -7,6 +7,8 @@ public class ConvertStringToIntegerDemo {
         System.out.println(covertToInteger(number));
     }
 
+
+
     public static int covertToInteger(String number){
         int result=0;
         int startIndex = 0 ;

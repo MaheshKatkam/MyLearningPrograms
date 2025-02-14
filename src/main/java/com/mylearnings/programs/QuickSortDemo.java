@@ -3,7 +3,7 @@ package com.mylearnings.programs;
 public class QuickSortDemo {
 
     public static void main(String[] args) {
-        int arr[] = {9,2,11,4,3,21,14,19,8,6,5,1};
+        int arr[] = {9,2,11,4,3,21,14,19,8,6,5,5,1};
         quickSort(arr,0,arr.length-1);
         for(int a: arr){
             System.out.print(a + " ");
@@ -22,10 +22,10 @@ public class QuickSortDemo {
         int lp = lowIndex +1;
         int rp = highIndex;
         while (lp <= rp){
-            while (lp <= rp  && arr[lp] < pivot){
+            while ( arr[lp] < pivot){
                 lp++;
             }
-            while (lp <= rp &&  arr[rp] > pivot){
+            while ( arr[rp] > pivot){
                 rp--;
             }
             if (lp <= rp) {

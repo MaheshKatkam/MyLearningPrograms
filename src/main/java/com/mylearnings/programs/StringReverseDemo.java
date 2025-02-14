@@ -11,7 +11,8 @@ public class StringReverseDemo {
         if(str.length() == 0){
             return reveseString;
         }
-        reveseString = reveseString+str.charAt(str.length()-1);
-        return  stringReverse(str.substring(0,str.length()-1),reveseString);
+        reveseString = reveseString+str.substring(str.length()-1);
+        String remainingString = str.substring(0,str.length()-1);
+        return  stringReverse(remainingString,reveseString);
     }
 }
